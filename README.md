@@ -30,6 +30,13 @@
 - 卡在哪：本机 HTTPS 连 github.com 被代理拦截（超时 21s 后失败），已确认必须走 SSH；环境里没有 python-docx，改用标准库手写 OOXML 生成 docx（`scripts/md2docx.py`）。
 - 沉淀了什么：`prompts/周报生成.md`（四段结构 + 事实核查，禁止把未完成写成已完成）、`scripts/md2docx.py`（零依赖 md→docx）。
 - 欠账：WB-00 / WB-01 / WB-02 与蓝皮书第 1–2 章未读，顺延补齐。
+- **21:00 补记（第二次打卡自动化触发）**：
+  - 教材已用 SSH 稀疏克隆到本地 `/tmp/aiguide`（`git clone --depth 1 --filter=blob:none --sparse` + `sparse-checkout set docs/workbuddy examples`），HTTPS 在本机确实不通，SSH 通。
+  - 三章要点已读并写入 `day1-weekly-report/验收-WB-01-官方样例回归.md`（同时生成 .docx）。最重要的三条：① 5.5.4 起「自动化」改名「**定时任务**」；② WB-01 的真验收是**改一处事实重跑**，一增一减同时成立才算过；③ WB-02 §6 安全自检，首次别接敏感账号。
+  - **官方样例回归**：拿教材 `examples/office-lab/work-notes.md` 的 N1–N5 套 `prompts/周报生成.md` 跑一遍，按 WB-01 §1.4 四条验收点打分 → **4/4 通过**（未把联调写成已完成 / 演示日期用 9-16 / 负责人写"待确认"未编造 / 5 条反馈未泛化）。
+  - `scripts/md2docx.py` 复跑通过，零依赖 md→docx 链路仍可用。
+  - **仍未完成（需本人在 App 内做，自动化代替不了）**：WB-01 §1.2 召唤专家跑周报、§1.4 变化题；WB-02 §4.2 最小任务与安全自检；蓝皮书第 1–2 章。
+  - 注意：本仓库曾于 20:47 被移入 `_trash/已清除-7天训练营-2026-11-01/`，本次已按原样恢复（含 .git 与 Day 1 产物），远端仓库未受影响。
 
 ### Day 2
 - 跑通了什么：
@@ -64,7 +71,7 @@
 ## 目录
 
 ```
-day1-weekly-report/   周报与工作记录
+day1-weekly-report/   周报与工作记录 + WB-00/01/02 章节验收与官方样例回归
 day2-orders/          订单清洗与图表
 day3-skills/          技能与连接器
 day4-knowledge/       资料库问答与会议纪要
@@ -79,3 +86,4 @@ scripts/              自建小工具（md2docx.py：零依赖 md→Word）
 
 - GitHub 一律走 SSH：`git@github.com:Sherry-lin-ng/workbuddy-7day-bootcamp.git`。HTTPS 会被代理拦截报 502/超时。
 - 涉及批量改文件、远程执行、自动化：**先在副本上试运行**，写清权限边界再上真数据。
+- 取主线教材：HTTPS 连 github.com 被代理拦截，用 SSH 稀疏克隆即可（`--depth 1 --filter=blob:none --sparse` 只拉 `docs/workbuddy` 和 `examples`，几秒完成）。
